@@ -1,10 +1,8 @@
-from sqlalchemy import select, func
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from models import Expense
-
-from schemas import ListParams
 
 
 class ExpenseRepository:
@@ -32,16 +30,13 @@ class ExpenseRepository:
             select(Expense).where(Expense.category_id == category_id)
         )
         return result.scalars().all()
-    
 
     @staticmethod
     async def get_all(db: AsyncSession) -> list[Expense]:
-        result = await db.execute(select(Expense).options(selectinload(Expense.category)))
+        result = await db.execute(
+            select(Expense).options(selectinload(Expense.category))
+        )
         return result.scalars().all()
-    
-
-
-
 
     # @staticmethod
     # async def get_list(db: AsyncSession):
@@ -56,7 +51,6 @@ class ExpenseRepository:
     #     result = await db.execute(statement)
     #     # items = result.scalars().all()
     #     return result
-    
 
     # @staticmethod
     # def _apply_sorting(statement, params: ListParams):

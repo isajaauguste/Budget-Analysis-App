@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from repositories import IncomeCategoryRepository, IncomeRepository
-from schemas import IncomeCreate, IncomePut, ListParams, PaginatedResponse
+from schemas import IncomeCreate, IncomePut
 
 
 class IncomeService:
@@ -57,8 +57,7 @@ class IncomeService:
 
     @staticmethod
     async def get_income(db: AsyncSession):
-        return await IncomeRepository.get_all(db)    
-    
+        return await IncomeRepository.get_all(db)
 
     # @staticmethod
     # async def list_incomes(

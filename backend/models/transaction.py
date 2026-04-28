@@ -1,20 +1,22 @@
+from datetime import date
+from typing import TYPE_CHECKING
+
 from sqlalchemy import (
+    Date,
     Float,
     ForeignKey,
     Integer,
     String,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import Date
-from datetime import date
 
-from .mixins import TimestampMixin
 from database import Base
 
-from typing import TYPE_CHECKING
+from .mixins import TimestampMixin
 
 if TYPE_CHECKING:
     from .category import Category
+
 
 class Transaction(TimestampMixin, Base):
     __tablename__ = "transactions"
@@ -22,9 +24,7 @@ class Transaction(TimestampMixin, Base):
     transaction_id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
 
     user_id: Mapped[int] = mapped_column(
-        ForeignKey("users.user_id", ondelete="RESTRICT"),
-        nullable=True,
-        index=True
+        ForeignKey("users.user_id", ondelete="RESTRICT"), nullable=True, index=True
     )
 
     amount: Mapped[float] = mapped_column(Float, nullable=False)
@@ -40,6 +40,5 @@ class Transaction(TimestampMixin, Base):
     type: Mapped[str] = mapped_column(String(20))  # "income" arba "expense"
 
     category: Mapped["Category"] = relationship(
-        "Category",
-        back_populates="transactions"
+        "Category", back_populates="transactions"
     )

@@ -1,17 +1,18 @@
+from datetime import date
+from typing import TYPE_CHECKING
+
 from sqlalchemy import (
+    Date,
     Float,
     ForeignKey,
     Integer,
     String,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import Date
-from datetime import date
 
-from .mixins import TimestampMixin
 from database import Base
 
-from typing import TYPE_CHECKING
+from .mixins import TimestampMixin
 
 if TYPE_CHECKING:
     from .income_category import IncomeCategory
@@ -40,6 +41,5 @@ class Income(TimestampMixin, Base):
     )
 
     category: Mapped[list["IncomeCategory"]] = relationship(
-        "IncomeCategory",
-        back_populates="incomes"
+        "IncomeCategory", back_populates="incomes"
     )

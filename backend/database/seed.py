@@ -1,7 +1,7 @@
 import asyncio
+from datetime import date
 
 from sqlalchemy import select
-from datetime import date
 
 from database.session import AsyncSessionLocal
 from models import Expense, ExpenseCategory, Income, IncomeCategory
@@ -91,7 +91,7 @@ async def seed_data() -> None:
                     amount=exp_data["amount"],
                     date=date.today(),
                     category_id=category.category_id,
-                    user_id=None
+                    user_id=None,
                 )
                 session.add(expense)
             else:

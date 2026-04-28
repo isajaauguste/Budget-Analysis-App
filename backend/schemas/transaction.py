@@ -1,7 +1,7 @@
-from pydantic import BaseModel, ConfigDict
-from typing import Optional, Literal
 from datetime import date, datetime
 from enum import Enum
+
+from pydantic import BaseModel, ConfigDict
 
 
 class TransactionType(str, Enum):
@@ -21,6 +21,7 @@ class TransactionBase(BaseModel):
         extra="forbid",
     )
 
+
 class TransactionCreate(TransactionBase):
     pass
 
@@ -35,8 +36,8 @@ class TransactionOut(BaseModel):
     date: date
     amount: float
     name: str
-    category_id: int  | None = None
-    category_name: str  | None = None
+    category_id: int | None = None
+    category_name: str | None = None
     created_at: datetime
     updated_at: datetime
 

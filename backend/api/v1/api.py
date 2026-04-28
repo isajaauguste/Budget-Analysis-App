@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from .routes import (
+    auth_router,
     expense_categories_router,
     expense_router,
     health_router,
@@ -8,7 +9,6 @@ from .routes import (
     income_router,
     transactions_router,
     users_router,
-    auth_router
 )
 
 api_router = APIRouter()

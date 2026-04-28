@@ -2,12 +2,12 @@ from sqlalchemy import (
     Float,
     ForeignKey,
     Integer,
-    String,
 )
 from sqlalchemy.orm import Mapped, mapped_column
 
-from .mixins import TimestampMixin
 from database import Base
+
+from .mixins import TimestampMixin
 
 
 class Budget(TimestampMixin, Base):
