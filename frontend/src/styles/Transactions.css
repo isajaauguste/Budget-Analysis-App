@@ -1,0 +1,64 @@
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  margin: 10px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+}
+
+.tab {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #f1f3f5;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.tab:hover {
+  background: #e9ecef;
+}
+
+.tab.active.all {
+  background: #3b5bdb;
+  color: white;
+}
+
+.tab.income {
+  background: #28a745;
+  color: white;
+}
+
+.tab.income:hover {
+  background: #d3f9d8;
+}
+
+.tab.expense {
+  background: #dc3545;
+  color: white;
+}
+
+.tab.expense:hover {
+  background: #ffc9c9;
+}
+
+.sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sort select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}

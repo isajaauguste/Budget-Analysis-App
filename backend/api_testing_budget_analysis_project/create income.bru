@@ -1,0 +1,28 @@
+meta {
+  name: create income
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://127.0.0.1:8000/api/v1/income
+  body: json
+  auth: inherit
+}
+
+params:query {
+  : 
+}
+
+body:json {
+  {
+    "amount": 12.5,
+    "date": "2026-04-14",
+    "name": "Test Bruno",
+    "category_id": 1
+  }
+}
+
+settings {
+  encodeUrl: true
+}

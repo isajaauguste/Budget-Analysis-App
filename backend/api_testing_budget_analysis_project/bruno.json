@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "api_testing_budget_analysis_project",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

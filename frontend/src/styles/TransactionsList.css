@@ -1,0 +1,93 @@
+.transactions-container {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.transaction-card {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.1);
+  gap: 16px;
+}
+
+.transaction-card.income {
+  border-left: 4px solid #28a745; /* green */
+}
+
+.transaction-card.expense {
+  border-left: 4px solid #dc3545; /* red */
+}
+
+.icon {
+  font-size: 20px;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e6f4ea; /* light green for income */
+  color: #28a745;
+}
+
+.transaction-card.expense .icon {
+  background: #f9e6e8; /* light red */
+  color: #dc3545;
+}
+
+.details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.description {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+}
+
+.category-date {
+  font-size: 13px;
+  color: #777;
+  margin-top: 4px;
+}
+
+.amount {
+  font-weight: 700;
+  font-size: 16px;
+  min-width: 90px;
+  text-align: right;
+  font-family: monospace;
+}
+
+.amount.positive {
+  color: #28a745;
+}
+
+.amount.negative {
+  color: #dc3545;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-left: 16px;
+}
+
+.action-icon {
+  cursor: pointer;
+  color: #888;
+  font-size: 18px;
+  transition: color 0.2s ease;
+}
+
+.action-icon:hover {
+  color: #000;
+}

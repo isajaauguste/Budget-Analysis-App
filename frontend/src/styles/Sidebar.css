@@ -1,0 +1,133 @@
+.sidebar{
+  background-color: #fff;
+}
+/* Header */
+.budget-tracker-style {
+  font-size: 22px;
+  color: #2563eb;
+  margin-bottom: 4px;
+}
+
+.manage-your-finances-style {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* NAV */
+.style-nav-bar {
+  padding: 16px;
+}
+
+.style-nav-icons {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.style-nav-icons li {
+  margin-bottom: 8px;
+}
+
+/* Links */
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #374151;
+  transition: 0.2s;
+}
+
+.nav-link:hover {
+  background-color: #f3f4f6;
+}
+
+.nav-link.active {
+  background-color: #e0edff;
+  color: #2563eb;
+}
+
+/* Icons */
+.iconSize {
+  width: 20px;
+  height: 20px;
+}
+
+/* USER SECTION */
+.style-border {
+  border-top: 1px solid #e5e7eb;
+  padding: 16px;
+  margin-top: 20px;
+}
+
+.style-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f9fafb;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.style-flex {
+  width: 40px;
+  height: 40px;
+  background: #2563eb;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* User icon */
+.userProfile {
+  color: white;
+  width: 20px;
+  height: 20px;
+}
+
+/* User text */
+.style-username {
+  font-weight: 500;
+  color: #111827;
+  margin: 0;
+}
+
+.style-email {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Logout */
+.logout-button-style {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: none;
+  background: none;
+  color: #dc2626;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.logout-button-style:hover {
+  background-color: #fee2e2;
+}
+
+.LogOut-style {
+  width: 18px;
+  height: 18px;
+}
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  border-right: 1px solid #e5e7eb;
+  padding: 16px;
+}

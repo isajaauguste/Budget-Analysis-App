@@ -1,0 +1,26 @@
+.choice_style-statistics{
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-left: 10px;
+    margin-right: 10px;
+    align-items: center;
+}
+.category_statistics{
+    display: flex;
+    flex-direction: row;
+    gap:  25px;
+}
+.pie_chart-style{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.pie_chart-edit{
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    padding: 10px;
+}

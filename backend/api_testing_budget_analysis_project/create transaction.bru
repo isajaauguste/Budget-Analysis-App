@@ -1,0 +1,24 @@
+meta {
+  name: create transaction
+  type: http
+  seq: 17
+}
+
+post {
+  url: http://127.0.0.1:8000/api/v1/transactions
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "amount": 300,
+    "date": "2026-04-24",
+    "name": "test",
+    "type": "income"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

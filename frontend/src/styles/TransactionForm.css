@@ -1,0 +1,186 @@
+
+.transaction-form-container {
+  max-width: 450px;
+  margin: 40px auto;
+  padding: 30px 25px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: border-color 0.2s;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.form-group input[type="text"] {
+  max-width: 500px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.amount-input-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+
+.currency-symbol {
+  padding: 0 12px;
+  font-weight: 600;
+  color: #555;
+  background-color: #f5f5f5;
+}
+
+.amount-input {
+  border: none;
+  padding: 10px;
+  font-size: 1rem;
+  flex-grow: 1;
+  outline: none;
+  background-color: #f5f5f5;
+}
+
+.form-error {
+  color: #d93025;
+  font-size: 0.875rem;
+  margin-top: 4px;
+  display: block;
+}
+
+.type-toggle {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.type-toggle button {
+  background-color: #f5f5f5; /* labai šviesus pilkas */
+  color: #000;
+  font-weight: 700; /* bold */
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  flex: 1;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: none;
+}
+
+.type-toggle button:hover {
+  background-color: #e0e0e0;
+}
+
+.type-toggle button.active.expense {
+  background-color: #fff0f0; /* šviesiai rausvas fonas */
+  color: #d32f2f; /* ryški raudona */
+  border: 1.5px solid #d32f2f;
+}
+
+.type-toggle button.active.income {
+  background-color: #f0fff0; /* šviesiai žalias fonas */
+  color: #2e7d32; /* tamsiai žalia */
+  border: 1.5px solid #2e7d32;
+}
+
+.type-toggle button:focus {
+  background-color: #fff; /* beveik baltas */
+  color: #d32f2f; /* ryški raudona tekste */
+  border: 1.5px solid #d32f2f; /* plonas raudonas rėmelis */
+  box-shadow: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-cancel {
+  background-color: #f5f5f5;
+  border: none;
+  color: #333;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-cancel:hover {
+  background-color: #e0e0e0;
+}
+
+.btn-submit {
+  color: #fff;
+}
+
+.btn-submit.expense {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+
+.btn-submit.expense:hover {
+  background-color: #b71c1c;
+}
+
+.btn-submit.income {
+  background-color: #28a745;
+}
+
+.btn-submit.income:hover {
+  background-color: #218838;
+}
+
+/* Responsive */
+@media (max-width: 550px) {
+  .transaction-form-container {
+    padding: 20px;
+  }
+}
