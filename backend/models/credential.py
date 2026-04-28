@@ -1,13 +1,11 @@
 from typing import TYPE_CHECKING
-from sqlalchemy import (
-    Integer,
-    String,
-    ForeignKey
-)
+
+from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from .mixins import TimestampMixin
 
 from database import Base
+
+from .mixins import TimestampMixin
 
 if TYPE_CHECKING:
     from .user import User
@@ -24,7 +22,12 @@ class Credential(TimestampMixin, Base):
 
     credential_id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     password_hash: Mapped[str] = mapped_column(String(255), nullable=True, index=False)
-    user_id: Mapped [str] = mapped_column(ForeignKey("users.user_id", ondelete="CASCADE"), unique=True, nullable=False, index=True)
+    user_id: Mapped[str] = mapped_column(
+        ForeignKey("users.user_id", ondelete="CASCADE"),
+        unique=True,
+        nullable=False,
+        index=True,
+    )
     user: Mapped["User"] = relationship(back_populates="credential")
 
     # categories: Mapped[list["Category"]] = relationship(

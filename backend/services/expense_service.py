@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from repositories import ExpenseCategoryRepository, ExpenseRepository
-from schemas import ExpenseCreate, ExpensePut, ListParams, PaginatedResponse
+from schemas import ExpenseCreate, ExpensePut
 
 
 class ExpenseService:
@@ -44,10 +44,7 @@ class ExpenseService:
             raise
 
     @staticmethod
-    async def delete_expense(
-        db: AsyncSession,
-        expense_id: int
-    ):
+    async def delete_expense(db: AsyncSession, expense_id: int):
         try:
             expense = await ExpenseRepository.get_by_id(db, expense_id)
 
@@ -59,16 +56,10 @@ class ExpenseService:
         except Exception:
             await db.rollback()
             raise
-            
+
     @staticmethod
     async def get_expense(db: AsyncSession):
         return await ExpenseRepository.get_all(db)
-    
-
-
-
-
-
 
 
 # class ExpenseService:

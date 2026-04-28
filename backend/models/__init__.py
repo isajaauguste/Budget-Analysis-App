@@ -1,15 +1,14 @@
 from .budget import Budget
+from .category import Category
 from .credential import Credential
 from .expense import Expense
 from .expense_category import ExpenseCategory
 from .income import Income
 from .income_category import IncomeCategory
-from .role import Role
-from .user import User
 from .mixins import TimestampMixin
+from .role import Role
 from .transaction import Transaction
-from .category import Category
-
+from .user import User
 
 __all__ = [
     "Budget",

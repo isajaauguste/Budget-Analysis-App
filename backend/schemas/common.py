@@ -1,7 +1,7 @@
-from pydantic import BaseModel, Field, ConfigDict
-from typing import Optional, Literal, Generic, TypeVar
 from math import ceil
+from typing import Generic, Literal, Optional, TypeVar
 
+from pydantic import BaseModel, ConfigDict, Field
 
 # Generic type variable allows this response to work with any data type (Author, Book)
 T = TypeVar("T")
@@ -15,11 +15,13 @@ class Meta(BaseModel):
 
 class PaginatedResponse(BaseModel, Generic[T]):
     # Generic[T] makes the model reusable for different data types
-    data: list[T] # List of items of type T (not fixed to a specific model)
+    data: list[T]  # List of items of type T (not fixed to a specific model)
     meta: Meta
 
     @staticmethod
-    def create(data: list[T], total: int, limit: int, offset: int) -> "PaginatedResponse[T]":
+    def create(
+        data: list[T], total: int, limit: int, offset: int
+    ) -> "PaginatedResponse[T]":
         # Current page number (offset-based pagination convert to page index)
         page = (offset // limit) + 1
         # ceil rounds UP ensures we count partially filled pages as a full page
@@ -33,6 +35,7 @@ class PaginatedResponse(BaseModel, Generic[T]):
                 total=total,
             ),
         )
+
 
 class ListParams(BaseModel):
     sort_by: Optional[Literal["date", "amount"]] = None

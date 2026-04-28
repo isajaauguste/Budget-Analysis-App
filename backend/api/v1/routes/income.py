@@ -3,8 +3,8 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Path, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from dependencies import get_db, get_list_params
-from schemas import IncomeCreate, IncomeOut, IncomePut, ListParams, PaginatedResponse
+from dependencies import get_db
+from schemas import IncomeCreate, IncomeOut, IncomePut
 from services import IncomeService
 
 router = APIRouter(prefix="/income", tags=["Income"])
@@ -39,7 +39,7 @@ async def delete_income(
     await IncomeService.delete_income(db, income_id)
     return {"message": "Income deleted successfully"}
 
-  
+
 @router.get("", response_model=list[IncomeOut])
 async def get_income(
     db: AsyncSession = Depends(get_db),
@@ -57,6 +57,3 @@ async def get_income(
 #     params: ListParams = Depends(get_list_params),
 # ):
 #     return await IncomeService.list_incomes(db, params)
-
-
-
