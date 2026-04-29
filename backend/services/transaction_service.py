@@ -1,26 +1,34 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from repositories import TransactionRepository
-from schemas import TransactionCreate, TransactionPut, TransactionType
+from schemas import TransactionCreate, TransactionPut, TransactionOut
+from repositories import TransactionRepository, CategoryRepository
+from models import Category
 
 
 class TransactionService:
-
+    
     @staticmethod
-    async def create(db: AsyncSession, data: TransactionCreate):
+    async def create_transaction(db: AsyncSession, payload: TransactionCreate) -> TransactionOut:
 
-        payload = data.model_dump()
+            category = await CategoryRepository.get_by_id(db, payload.category_id)
+            if not category:
+                raise ValueError("Category not found")
+            
+            transaction = await TransactionRepository.create(
+                db, payload.model_dump()
+            )
 
-        # normalize amount
-        if data.type == TransactionType.EXPENSE:
-            payload["amount"] = -abs(payload["amount"])
-        else:
-            payload["amount"] = abs(payload["amount"])
+            return TransactionOut(
+                transaction_id=transaction.transaction_id,
+                date=transaction.date,
+                amount=transaction.amount,
+                name=transaction.name,
+                category_id=transaction.category_id,
+                category_name=category.category,
+                category_type=category.type.value,
+                created_at=transaction.created_at,
+                updated_at=transaction.updated_at,
+            )
 
-        # enum → string DB
-        payload["type"] = data.type.value
-
-        return await TransactionRepository.create(db, payload)
 
     @staticmethod
     async def update_transaction(
@@ -36,14 +44,29 @@ class TransactionService:
 
             update_data = payload.model_dump(exclude_unset=True)
 
-            for field in ["amount", "name", "category_id", "date"]:
-                if field in update_data:
-                    setattr(transaction, field, update_data[field])
+
+            if "category_id" in update_data:
+                category = await db.get(Category, update_data["category_id"])
+                if not category:
+                    raise ValueError("Category not found")
+
+            for key, value in update_data.items():
+                setattr(transaction, key, value)
 
             await db.commit()
             await db.refresh(transaction)
 
-            return transaction
+            return TransactionOut(
+                transaction_id=transaction.transaction_id,
+                date=transaction.date,
+                amount=transaction.amount,
+                name=transaction.name,
+                category_id=transaction.category_id,
+                category_name=transaction.category.category,
+                category_type=transaction.category.type.value,
+                created_at=transaction.created_at,
+                updated_at=transaction.updated_at,
+            )
 
         except Exception:
             await db.rollback()
@@ -57,15 +80,56 @@ class TransactionService:
             if not transaction:
                 raise ValueError("Transaction not found")
 
-            await TransactionRepository.delete(db, transaction)
+            await TransactionRepository.delete(db, transaction_id)
+            return {"message": "Transaction deleted successfully"}
 
         except Exception:
             await db.rollback()
             raise
 
+
+    # @staticmethod
+    # async def get_transactions(
+    #     db: AsyncSession,
+    #     user_id: int | None = None,
+    #     transaction_type: str = "all"
+    # ):
+    #     return await TransactionRepository.get_filtered(
+    #         db,
+    #         user_id=user_id,
+    #         transaction_type=transaction_type
+    #     )
+
+
+
     @staticmethod
-    async def get_transactions(db: AsyncSession, type: str = "all"):
-        return await TransactionRepository.get_filtered(db, type)
+    async def get_filtered(
+        db: AsyncSession,
+        user_id: int | None = None,
+        category_type: str | None = None,
+    ):
+        transactions = await TransactionRepository.get_filtered(
+            db, user_id, category_type
+        )
+
+        result = []
+        for t in transactions:
+            result.append(TransactionOut(
+                transaction_id=t.transaction_id,
+                date=t.date,
+                amount=t.amount,
+                name=t.name,
+                category_id=t.category_id,
+                category_name=t.category.category,
+                category_type=t.category.type.value,
+                created_at=t.created_at,
+                updated_at=t.updated_at,
+            ))
+
+        return result
+
+
+
 
 
 # class TransactionService:

@@ -9,6 +9,8 @@ from .routes import (
     income_router,
     transactions_router,
     users_router,
+    auth_router,
+    categories_router
 )
 
 api_router = APIRouter()
@@ -21,3 +23,4 @@ api_router.include_router(expense_categories_router)
 api_router.include_router(transactions_router)
 api_router.include_router(users_router)
 api_router.include_router(auth_router)
+api_router.include_router(categories_router)

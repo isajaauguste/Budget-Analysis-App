@@ -7,8 +7,11 @@ from .income import Income
 from .income_category import IncomeCategory
 from .mixins import TimestampMixin
 from .role import Role
-from .transaction import Transaction
 from .user import User
+from .transaction import Transaction
+from .category import Category
+from .enum import TransactionType
+
 
 __all__ = [
     "Budget",
@@ -22,4 +25,5 @@ __all__ = [
     "TimestampMixin",
     "Transaction",
     "Category",
+    "TransactionType"
 ]

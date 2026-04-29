@@ -33,11 +33,9 @@ class Transaction(TimestampMixin, Base):
 
     category_id: Mapped[int] = mapped_column(
         ForeignKey("categories.category_id", ondelete="RESTRICT"),
-        nullable=True,
+        nullable=False,
         index=True,
     )
-
-    type: Mapped[str] = mapped_column(String(20))  # "income" arba "expense"
 
     category: Mapped["Category"] = relationship(
         "Category", back_populates="transactions"

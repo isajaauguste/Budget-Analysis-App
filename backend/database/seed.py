@@ -4,131 +4,81 @@ from datetime import date
 from sqlalchemy import select
 
 from database.session import AsyncSessionLocal
-from models import Expense, ExpenseCategory, Income, IncomeCategory
+from models import Transaction, Category
 
 
-async def seed_data() -> None:
+async def seed_data():
     async with AsyncSessionLocal() as session:
 
         # =====================
-        # EXPENSE CATEGORIES
+        # CATEGORIES
         # =====================
-        expense_categories_data = [
-            {"category": "Food", "description": "Food and groceries"},
-            {"category": "Transport", "description": "Public transport, fuel"},
-            {"category": "Entertainment", "description": "Movies, games, fun"},
+        categories_data = [
+            # EXPENSE
+            {"category": "Food", "description": "Food and groceries", "type": "expense"},
+            {"category": "Transport", "description": "Public transport, fuel", "type": "expense"},
+            {"category": "Entertainment", "description": "Movies, games", "type": "expense"},
+
+            # INCOME
+            {"category": "Salary", "description": "Monthly salary", "type": "income"},
+            {"category": "Freelance", "description": "Freelance work", "type": "income"},
+            {"category": "Investments", "description": "Dividends", "type": "income"},
         ]
 
-        expense_category_objects = {}
+        category_map = {}
 
-        for cat_data in expense_categories_data:
+        for cat_data in categories_data:
             result = await session.execute(
-                select(ExpenseCategory).where(
-                    ExpenseCategory.category == cat_data["category"]
+                select(Category).where(
+                    Category.category == cat_data["category"]
                 )
             )
             category = result.scalar_one_or_none()
 
             if category is None:
-                category = ExpenseCategory(
+                category = Category(
                     category=cat_data["category"],
                     description=cat_data["description"],
+                    type=cat_data["type"],
                 )
                 session.add(category)
                 await session.flush()
 
-            expense_category_objects[cat_data["category"]] = category
+            category_map[cat_data["category"]] = category
 
         # =====================
-        # INCOME CATEGORIES
+        # TRANSACTIONS
         # =====================
-        income_categories_data = [
-            {"category": "Salary", "description": "Monthly salary"},
-            {"category": "Freelance", "description": "Freelance income"},
-            {"category": "Investments", "description": "Dividends, stocks"},
-        ]
 
-        income_category_objects = {}
-
-        for cat_data in income_categories_data:
-            result = await session.execute(
-                select(IncomeCategory).where(
-                    IncomeCategory.category == cat_data["category"]
-                )
-            )
-            category = result.scalar_one_or_none()
-
-            if category is None:
-                category = IncomeCategory(
-                    category=cat_data["category"],
-                    description=cat_data["description"],
-                )
-                session.add(category)
-                await session.flush()
-
-            income_category_objects[cat_data["category"]] = category
-
-        # =====================
-        # EXPENSES
-        # =====================
-        expenses_data = [
+        transactions_data = [
             {"name": "Lunch", "amount": 15.0, "category": "Food"},
             {"name": "Bus Ticket", "amount": 2.5, "category": "Transport"},
             {"name": "Cinema", "amount": 12.0, "category": "Entertainment"},
+
+            {"name": "Main Salary", "amount": 2500.0, "category": "Salary"},
+            {"name": "Freelance Project", "amount": 800.0, "category": "Freelance"},
+            {"name": "Stock Dividends", "amount": 200.0, "category": "Investments"},
         ]
 
-        for exp_data in expenses_data:
+        for tx_data in transactions_data:
             result = await session.execute(
-                select(Expense).where(Expense.name == exp_data["name"])
+                select(Transaction).where(Transaction.name == tx_data["name"])
             )
-            expense = result.scalar_one_or_none()
+            transaction = result.scalar_one_or_none()
 
-            category = expense_category_objects[exp_data["category"]]
+            category = category_map[tx_data["category"]]
 
-            if expense is None:
-                expense = Expense(
-                    name=exp_data["name"],
-                    amount=exp_data["amount"],
+            if transaction is None:
+                transaction = Transaction(
+                    name=tx_data["name"],
+                    amount=tx_data["amount"],
                     date=date.today(),
                     category_id=category.category_id,
                     user_id=None,
                 )
-                session.add(expense)
+                session.add(transaction)
             else:
-                expense.category_id = category.category_id
-
-        # =====================
-        # INCOME
-        # =====================
-        incomes_data = [
-            {"name": "Main Job Salary", "amount": 2500.0, "category": "Salary"},
-            {
-                "name": "Side Freelance Project",
-                "amount": 800.0,
-                "category": "Freelance",
-            },
-            {"name": "Stock Dividends", "amount": 200.0, "category": "Investments"},
-        ]
-
-        for inc_data in incomes_data:
-            result = await session.execute(
-                select(Income).where(Income.name == inc_data["name"])
-            )
-            income = result.scalar_one_or_none()
-
-            category = income_category_objects[inc_data["category"]]
-
-            if income is None:
-                income = Income(
-                    name=inc_data["name"],
-                    amount=inc_data["amount"],
-                    date=date.today(),
-                    category_id=category.category_id,
-                    user_id=None,  # jei modelyje yra
-                )
-                session.add(income)
-            else:
-                income.category_id = category.category_id
+                transaction.category_id = category.category_id
 
         await session.commit()
         print("Seed data inserted successfully.")

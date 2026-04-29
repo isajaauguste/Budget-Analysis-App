@@ -6,6 +6,8 @@ from .income import router as income_router
 from .income_categories import router as income_categories_router
 from .transactions import router as transactions_router
 from .users import router as users_router
+from .auth import router as auth_router
+from .categories import router as categories_router
 
 __all__ = [
     "health_router",
@@ -16,4 +18,5 @@ __all__ = [
     "transactions_router",
     "users_router",
     "auth_router",
+    "categories_router",
 ]

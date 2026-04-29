@@ -5,6 +5,10 @@ from .income_category_service import IncomeCategoryService
 from .income_service import IncomeService
 from .transaction_service import TransactionService
 from .user_service import UserService
+from .auth_service import AuthService
+from .transaction_service import TransactionService
+from .category_service import CategoryService
+
 
 __all__ = [
     "ExpenseService",
@@ -15,4 +19,5 @@ __all__ = [
     "UserService",
     "AuthService",
     "TransactionService",
+    "CategoryService",
 ]
