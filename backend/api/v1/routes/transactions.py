@@ -30,7 +30,7 @@ async def create_transaction(
     data: TransactionCreate,
     db: AsyncSession = Depends(get_db)
 ):
-    return await TransactionService.create(db, data)
+    return await TransactionService.create_transaction(db, data)
 
 
 @router.put(
@@ -56,8 +56,11 @@ async def delete_transaction(
 
 
 @router.get("/")
-async def get_transactions(
-    type: str = "all",
+async def get_filtered(
+    category_type: str = "all",
     db: AsyncSession = Depends(get_db)
 ):
-    return await TransactionService.get_transactions(db, type)
+    return await TransactionService.get_filtered(
+        db=db,
+        category_type=category_type
+    )

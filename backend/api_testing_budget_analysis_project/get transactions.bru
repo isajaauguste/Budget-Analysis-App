@@ -5,13 +5,13 @@ meta {
 }
 
 get {
-  url: http://127.0.0.1:8000/api/v1/transactions?transaction_type=all&limit=5&offset=0
+  url: http://127.0.0.1:8000/api/v1/transactions?category_type=all&limit=5&offset=0
   body: none
   auth: inherit
 }
 
 params:query {
-  transaction_type: all
+  category_type: all
   limit: 5
   offset: 0
 }

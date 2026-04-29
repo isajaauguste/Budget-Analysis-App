@@ -1,11 +1,14 @@
 from sqlalchemy import (
     Integer,
     String,
+    ForeignKey,
+    Enum as SqlEnum
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .mixins import TimestampMixin
 from database import Base
+from .enum import TransactionType
 
 from typing import TYPE_CHECKING
 
@@ -20,7 +23,13 @@ class Category(Base):
     category: Mapped[str] = mapped_column(String(255), nullable=False, index=False)
     description: Mapped[str] = mapped_column(String(255), nullable=True, index=False)
 
+    type: Mapped[TransactionType] = mapped_column(
+        SqlEnum(TransactionType, name="transaction_type"),
+        nullable=False,
+        index=True
+    )
+
     transactions: Mapped[list["Transaction"]] = relationship(
-        "Transaction",
-        back_populates="category"
+        back_populates="category",
+        cascade="all, delete-orphan"
     )

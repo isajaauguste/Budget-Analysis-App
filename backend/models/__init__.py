@@ -9,6 +9,7 @@ from .user import User
 from .mixins import TimestampMixin
 from .transaction import Transaction
 from .category import Category
+from .enum import TransactionType
 
 
 __all__ = [
@@ -23,4 +24,5 @@ __all__ = [
     "TimestampMixin",
     "Transaction",
     "Category",
+    "TransactionType"
 ]

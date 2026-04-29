@@ -3,8 +3,10 @@ from .expense_category import ExpenseCategoryCreate, ExpenseCategoryOut
 from .income import IncomeCreate, IncomeOut, IncomePut
 from .income_category import IncomeCategoryCreate, IncomeCategoryOut
 from .common import ListParams, PaginatedResponse
-from .transaction import TransactionOut, TransactionListResponse, TransactionCreate, TransactionType, TransactionPut
+from .transaction import TransactionOut, TransactionListResponse, TransactionCreate, TransactionPut
 from .user import UserCreate, UserLogin, UserResponse
+from .category import CategoryBase, CategoryCreate, CategoryOut
+
 
 __all__ = [
     "IncomeCreate",
@@ -25,6 +27,8 @@ __all__ = [
     "UserLogin",
     "UserResponse",
     "TransactionCreate",
-    "TransactionType",
     "TransactionPut",
+    "CategoryBase",
+    "CategoryCreate",
+    "CategoryOut",
 ]

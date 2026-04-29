@@ -5,18 +5,17 @@ meta {
 }
 
 put {
-  url: http://127.0.0.1:8000/api/v1/transactions/1
+  url: http://127.0.0.1:8000/api/v1/transactions/15
   body: json
   auth: inherit
 }
 
 body:json {
   {
-    "amount": 100,
+    "amount": 300,
     "date": "2026-04-24",
-    "name": "Test",
-    "type": "income",
-    "category_id": 1
+    "name": "lala",
+    "category_id": 6
   }
 }
 

@@ -1,20 +1,15 @@
 from pydantic import BaseModel, ConfigDict
 from typing import Optional, Literal
 from datetime import date, datetime
-from enum import Enum
+from models import TransactionType
 
-
-class TransactionType(str, Enum):
-    INCOME = "income"
-    EXPENSE = "expense"
 
 
 class TransactionBase(BaseModel):
     amount: float
     date: date
     name: str
-    category_id: int | None = None
-    type: TransactionType
+    category_id: int
 
     model_config = ConfigDict(
         str_strip_whitespace=True,
@@ -31,12 +26,12 @@ class TransactionPut(TransactionBase):
 
 class TransactionOut(BaseModel):
     transaction_id: int
-    type: TransactionType
     date: date
     amount: float
     name: str
-    category_id: int  | None = None
-    category_name: str  | None = None
+    category_id: int
+    category_name: str
+    category_type: str
     created_at: datetime
     updated_at: datetime
 
