@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from .routes import (
+    auth_router,
     expense_categories_router,
     expense_router,
     health_router,

@@ -1,7 +1,8 @@
-from typing import Optional, Literal
+from datetime import date, datetime
+from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field
-from datetime import date, datetime
+
 
 class IncomeBase(BaseModel):
     user_id: Optional[int] = None
@@ -35,4 +36,3 @@ class IncomeOut(BaseModel):
     updated_at: Optional[datetime]
 
     model_config = ConfigDict(from_attributes=True)
-

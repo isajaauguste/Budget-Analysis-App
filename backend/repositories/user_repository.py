@@ -1,8 +1,9 @@
+from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
-from sqlalchemy import select, or_
 
-from models import User, Credential
+from models import Credential, User
+
 
 class UserRepository:
 
@@ -15,16 +16,20 @@ class UserRepository:
         await db.commit()
         await db.refresh(user)
 
-        result = await db.execute(select(User).options(selectinload(User.credential)).where(User.user_id == user.user_id))
+        result = await db.execute(
+            select(User)
+            .options(selectinload(User.credential))
+            .where(User.user_id == user.user_id)
+        )
 
         return result.scalar_one()
-    
+
     @staticmethod
     async def get_by_username_or_email(db: AsyncSession, login: str) -> User | None:
         result = await db.execute(
             select(User)
             .options(selectinload(User.credential))
-            .where(
-                or_(User.username == login, User.email == login)))
-        
+            .where(or_(User.username == login, User.email == login))
+        )
+
         return result.scalar_one_or_none()

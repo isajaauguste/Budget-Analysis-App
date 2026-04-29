@@ -1,7 +1,7 @@
-from pydantic import BaseModel, ConfigDict
-from typing import Optional, Literal
 from datetime import date, datetime
 from models import TransactionType
+
+from pydantic import BaseModel, ConfigDict
 
 
 
@@ -15,6 +15,7 @@ class TransactionBase(BaseModel):
         str_strip_whitespace=True,
         extra="forbid",
     )
+
 
 class TransactionCreate(TransactionBase):
     pass

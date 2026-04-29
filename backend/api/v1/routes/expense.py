@@ -3,8 +3,8 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Path, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from dependencies import get_db, get_list_params
-from schemas import ExpenseCreate, ExpenseOut, ExpensePut, ListParams, PaginatedResponse
+from dependencies import get_db
+from schemas import ExpenseCreate, ExpenseOut, ExpensePut
 from services import ExpenseService
 
 router = APIRouter(prefix="/expense", tags=["Expense"])
@@ -30,15 +30,13 @@ async def update_expense(
 ):
     return await ExpenseService.update_expense(db, expense_id, payload)
 
-@router.delete(
-    "/{expense_id}"
-)
+
+@router.delete("/{expense_id}")
 async def delete_expense(
-    expense_id: Annotated[int, Path(gt=0)],
-    db: AsyncSession = Depends(get_db)
+    expense_id: Annotated[int, Path(gt=0)], db: AsyncSession = Depends(get_db)
 ):
     return await ExpenseService.delete_expense(db, expense_id)
-  
+
 
 @router.get("", response_model=list[ExpenseOut])
 async def get_expense(

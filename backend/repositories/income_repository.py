@@ -1,10 +1,8 @@
-from sqlalchemy import select, func
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from models import Income
-
-from schemas import ListParams
 
 
 class IncomeRepository:
@@ -33,13 +31,11 @@ class IncomeRepository:
             select(Income).where(Income.category_id == category_id)
         )
         return result.scalars().all()
-    
+
     @staticmethod
     async def get_all(db: AsyncSession) -> list[Income]:
         result = await db.execute(select(Income).options(selectinload(Income.category)))
         return result.scalars().all()
-
-
 
     # @staticmethod
     # async def get_list(db: AsyncSession, params: ListParams):
@@ -54,7 +50,6 @@ class IncomeRepository:
     #     items = result.scalars().all()
 
     #     return total, items
-    
 
     # @staticmethod
     # def _apply_sorting(statement, params: ListParams):

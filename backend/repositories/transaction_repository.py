@@ -18,10 +18,12 @@ class TransactionRepository:
     async def get_all(db: AsyncSession):
         result = await db.execute(select(Transaction))
         return result.scalars().all()
-    
+
     @staticmethod
     async def get_by_id(db: AsyncSession, transaction_id: int) -> Transaction | None:
-        result = await db.execute(select(Transaction).where(Transaction.transaction_id == transaction_id))
+        result = await db.execute(
+            select(Transaction).where(Transaction.transaction_id == transaction_id)
+        )
         return result.scalar_one_or_none()
 
     @staticmethod
@@ -44,7 +46,6 @@ class TransactionRepository:
 
         result = await db.execute(query)
         return result.scalars().all()
-
 
     @staticmethod
     async def delete(db: AsyncSession, transaction_id: int):

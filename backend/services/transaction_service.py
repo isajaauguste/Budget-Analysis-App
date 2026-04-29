@@ -71,7 +71,6 @@ class TransactionService:
         except Exception:
             await db.rollback()
             raise
-    
 
     @staticmethod
     async def delete_transaction(db: AsyncSession, transaction_id: int):

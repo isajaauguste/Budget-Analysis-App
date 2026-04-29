@@ -1,4 +1,5 @@
 from typing import TYPE_CHECKING
+
 from sqlalchemy import (
     ForeignKey,
     Integer,
@@ -6,11 +7,13 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .mixins import TimestampMixin
 from database import Base
 
-if TYPE_CHECKING: 
+from .mixins import TimestampMixin
+
+if TYPE_CHECKING:
     from .credential import Credential
+
 
 class User(TimestampMixin, Base):
     __tablename__ = "users"
@@ -27,7 +30,9 @@ class User(TimestampMixin, Base):
     )
     email: Mapped[str] = mapped_column(String(255), nullable=True, index=False)
     username: Mapped[str] = mapped_column(String(255), nullable=True, index=False)
-    credential: Mapped["Credential"] = relationship(back_populates="user", uselist=False, cascade="all, delete-orphan")
+    credential: Mapped["Credential"] = relationship(
+        back_populates="user", uselist=False, cascade="all, delete-orphan"
+    )
 
     # categories: Mapped[list["Category"]] = relationship(
     #     secondary=book_category,

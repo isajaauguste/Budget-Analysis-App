@@ -1,3 +1,4 @@
+from .auth import router as auth_router
 from .expense import router as expense_router
 from .expense_categories import router as expense_categories_router
 from .health import router as health_router

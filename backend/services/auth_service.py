@@ -1,5 +1,5 @@
-from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from repositories import UserRepository
 from schemas import UserLogin

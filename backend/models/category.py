@@ -1,3 +1,5 @@
+from typing import TYPE_CHECKING
+
 from sqlalchemy import (
     Integer,
     String,
@@ -6,11 +8,8 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .mixins import TimestampMixin
 from database import Base
 from .enum import TransactionType
-
-from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from .transaction import Transaction

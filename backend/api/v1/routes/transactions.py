@@ -1,9 +1,14 @@
-from fastapi import APIRouter, Depends, Query, status, Path
-from typing import Annotated, Optional, Literal
+from typing import Annotated
+
+from fastapi import APIRouter, Depends, Path, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from dependencies import get_db
-from schemas import TransactionListResponse, TransactionCreate, TransactionOut, TransactionPut
+from schemas import (
+    TransactionCreate,
+    TransactionOut,
+    TransactionPut,
+)
 from services import TransactionService
 
 router = APIRouter(prefix="/transactions", tags=["Transactions"])
@@ -27,8 +32,7 @@ router = APIRouter(prefix="/transactions", tags=["Transactions"])
 
 @router.post("/")
 async def create_transaction(
-    data: TransactionCreate,
-    db: AsyncSession = Depends(get_db)
+    data: TransactionCreate, db: AsyncSession = Depends(get_db)
 ):
     return await TransactionService.create_transaction(db, data)
 
