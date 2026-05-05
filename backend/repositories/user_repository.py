@@ -33,3 +33,14 @@ class UserRepository:
         )
 
         return result.scalar_one_or_none()
+    
+
+    @staticmethod
+    async def get_by_id(db: AsyncSession, user_id: int) -> User | None:
+        result = await db.execute(
+             select(User)
+             .options(selectinload(User.credential))
+             .where(User.user_id == user_id)
+        )
+
+        return result.scalar_one_or_none()

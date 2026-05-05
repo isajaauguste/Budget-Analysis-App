@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr, Field, model_validator
 from pydantic_core import PydanticCustomError
-
+from models import UserRole
 
 class UserCreate(BaseModel):
     username: str = Field(min_length=3, max_length=50)
@@ -19,6 +19,7 @@ class UserResponse(BaseModel):
     user_id: int
     username: str
     email: EmailStr
+    role: UserRole
 
     class Config:
         from_attributes = True

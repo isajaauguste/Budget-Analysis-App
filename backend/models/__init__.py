@@ -1,5 +1,4 @@
 from .budget import Budget
-from .category import Category
 from .credential import Credential
 from .expense import Expense
 from .expense_category import ExpenseCategory
@@ -10,7 +9,7 @@ from .role import Role
 from .user import User
 from .transaction import Transaction
 from .category import Category
-from .enum import TransactionType
+from .enums import TransactionType, UserRole
 
 
 __all__ = [
@@ -25,5 +24,6 @@ __all__ = [
     "TimestampMixin",
     "Transaction",
     "Category",
-    "TransactionType"
+    "TransactionType",
+    "UserRole",
 ]

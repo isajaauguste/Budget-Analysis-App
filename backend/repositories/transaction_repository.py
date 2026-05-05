@@ -29,20 +29,19 @@ class TransactionRepository:
     @staticmethod
     async def get_filtered(
         db: AsyncSession,
-        user_id: int | None = None,
+        user_id: int,
         category_type: str = "all"
     ):
         query = (
             select(Transaction)
             .options(selectinload(Transaction.category))
-            .join(Transaction.category)
+            .where(Transaction.user_id == user_id)
         )
+        # if user_id:
+        #     query = query.where(Transaction.user_id == user_id)
 
-        if user_id:
-            query = query.where(Transaction.user_id == user_id)
-
-        if category_type != "all":
-            query = query.where(Category.type == category_type)
+        # if category_type != "all":
+        #     query = query.where(Category.type == category_type)
 
         result = await db.execute(query)
         return result.scalars().all()

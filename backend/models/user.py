@@ -4,12 +4,14 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     String,
+    Enum as SqlEnum
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database import Base
 
 from .mixins import TimestampMixin
+from .enums import UserRole
 
 if TYPE_CHECKING:
     from .credential import Credential
@@ -25,9 +27,7 @@ class User(TimestampMixin, Base):
     # )
 
     user_id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
-    role_id: Mapped[int] = mapped_column(
-        ForeignKey("roles.role_id", ondelete="RESTRICT"), nullable=True, index=True
-    )
+    role: Mapped[UserRole] = mapped_column(SqlEnum(UserRole, name="user_role"), nullable=False, default=UserRole.USER)
     email: Mapped[str] = mapped_column(String(255), nullable=True, index=False)
     username: Mapped[str] = mapped_column(String(255), nullable=True, index=False)
     credential: Mapped["Credential"] = relationship(

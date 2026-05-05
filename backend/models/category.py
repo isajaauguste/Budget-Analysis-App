@@ -9,7 +9,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database import Base
-from .enum import TransactionType
+from .enums import TransactionType
 
 if TYPE_CHECKING:
     from .transaction import Transaction

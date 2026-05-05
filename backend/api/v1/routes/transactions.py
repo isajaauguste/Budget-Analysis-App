@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Path, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from dependencies import get_db
+from dependencies import get_db, get_current_user
 from schemas import (
     TransactionCreate,
     TransactionOut,
@@ -30,11 +30,16 @@ router = APIRouter(prefix="/transactions", tags=["Transactions"])
 #     )
 
 
+
 @router.post("/")
 async def create_transaction(
-    data: TransactionCreate, db: AsyncSession = Depends(get_db)
+    payload: TransactionCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user=Depends(get_current_user),
 ):
-    return await TransactionService.create_transaction(db, data)
+    return await TransactionService.create_transaction(
+        db=db, current_user_id=current_user.user_id, payload=payload,
+    )
 
 
 @router.put(
@@ -46,25 +51,34 @@ async def update_transaction(
     transaction_id: Annotated[int, Path(gt=0)],
     payload: TransactionPut,
     db: AsyncSession = Depends(get_db),
+    current_user= Depends(get_current_user),
 ):
-    return await TransactionService.update_transaction(db, transaction_id, payload)
+    return await TransactionService.update_transaction(
+        db=db,
+        transaction_id=transaction_id,
+        payload=payload,
+        current_user_id=current_user.user_id,
+        )
 
 
 @router.delete("/{transaction_id}")
 async def delete_transaction(
     transaction_id: Annotated[int, Path(gt=0)],
     db: AsyncSession = Depends(get_db),
+    current_user= Depends(get_current_user)
 ):
-    await TransactionService.delete_transaction(db, transaction_id)
+    await TransactionService.delete_transaction(db, transaction_id, current_user.user_id)
     return {"message": "Transaction deleted successfully"}
 
 
 @router.get("/")
 async def get_filtered(
-    category_type: str = "all",
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    current_user= Depends(get_current_user),
+    category_type: str | None = None,
 ):
     return await TransactionService.get_filtered(
         db=db,
-        category_type=category_type
+        category_type=category_type,
+        current_user_id=current_user.user_id,
     )
