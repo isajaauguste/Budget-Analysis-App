@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -10,15 +11,9 @@ import {
 import "../styles/OverviewChart.css";
 
 function OverviewChart({ data = [] }) {
-    const chartData = [
-        { date: "Mon", income: 500, expense: 200 },
-        { date: "Tue", income: 700, expense: 300 },
-        { date: "Wed", income: 400, expense: 150 },
-        { date: "Thu", income: 900, expense: 400 },
-        { date: "Fri", income: 300, expense: 100 },
-        { date: "Sat", income: 1000, expense: 600 },
-        { date: "Sun", income: 800, expense: 250 },
-    ];
+  
+  
+
   return (
     <div className="chart-container">
       <h2 className="chart-title">Last 7 Days Overview</h2>
@@ -57,7 +52,7 @@ function OverviewChart({ data = [] }) {
       </ResponsiveContainer>
       <div className="chart-days">
         {(data || []).map((item) => (
-            <span key={item.date}>{item.date}</span>
+          <span key={item.date}>{item.date}</span>
         ))}
       </div>
     </div>
