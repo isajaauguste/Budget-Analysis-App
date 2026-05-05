@@ -7,18 +7,20 @@ from models import Category
 class TransactionService:
     
     @staticmethod
-    async def create_transaction(db: AsyncSession, payload: TransactionCreate) -> TransactionOut:
+    async def create_transaction(db: AsyncSession, payload: TransactionCreate, current_user_id: int) -> TransactionOut:
 
             category = await CategoryRepository.get_by_id(db, payload.category_id)
             if not category:
                 raise ValueError("Category not found")
             
-            transaction = await TransactionRepository.create(
-                db, payload.model_dump()
-            )
+            data = payload.model_dump()
+            data["user_id"] = current_user_id
+
+            transaction = await TransactionRepository.create(db, data)
 
             return TransactionOut(
                 transaction_id=transaction.transaction_id,
+                user_id=transaction.user_id,
                 date=transaction.date,
                 amount=transaction.amount,
                 name=transaction.name,
@@ -35,12 +37,16 @@ class TransactionService:
         db: AsyncSession,
         transaction_id: int,
         payload: TransactionPut,
+        current_user_id: int,
     ):
         try:
             transaction = await TransactionRepository.get_by_id(db, transaction_id)
 
             if not transaction:
                 raise ValueError("Transaction not found")
+            
+            if transaction.user_id != current_user_id:
+                raise PermissionError("Not your transaction")
 
             update_data = payload.model_dump(exclude_unset=True)
 
@@ -58,6 +64,7 @@ class TransactionService:
 
             return TransactionOut(
                 transaction_id=transaction.transaction_id,
+                user_id=transaction.user_id,
                 date=transaction.date,
                 amount=transaction.amount,
                 name=transaction.name,
@@ -73,12 +80,15 @@ class TransactionService:
             raise
 
     @staticmethod
-    async def delete_transaction(db: AsyncSession, transaction_id: int):
+    async def delete_transaction(db: AsyncSession, transaction_id: int, current_user_id: int,):
         try:
             transaction = await TransactionRepository.get_by_id(db, transaction_id)
 
             if not transaction:
                 raise ValueError("Transaction not found")
+            
+            if transaction.user_id != current_user_id:
+                raise PermissionError("Not your transaction")
 
             await TransactionRepository.delete(db, transaction_id)
             return {"message": "Transaction deleted successfully"}
@@ -88,34 +98,22 @@ class TransactionService:
             raise
 
 
-    # @staticmethod
-    # async def get_transactions(
-    #     db: AsyncSession,
-    #     user_id: int | None = None,
-    #     transaction_type: str = "all"
-    # ):
-    #     return await TransactionRepository.get_filtered(
-    #         db,
-    #         user_id=user_id,
-    #         transaction_type=transaction_type
-    #     )
-
-
 
     @staticmethod
     async def get_filtered(
         db: AsyncSession,
-        user_id: int | None = None,
-        category_type: str | None = None,
+        current_user_id: int,
+        category_type=None,
     ):
         transactions = await TransactionRepository.get_filtered(
-            db, user_id, category_type
+            db, current_user_id, category_type
         )
-
         result = []
         for t in transactions:
+            print(t)
             result.append(TransactionOut(
                 transaction_id=t.transaction_id,
+                user_id=t.user_id,
                 date=t.date,
                 amount=t.amount,
                 name=t.name,

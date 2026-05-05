@@ -24,7 +24,7 @@ class Transaction(TimestampMixin, Base):
     transaction_id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
 
     user_id: Mapped[int] = mapped_column(
-        ForeignKey("users.user_id", ondelete="RESTRICT"), nullable=True, index=True
+        ForeignKey("users.user_id", ondelete="RESTRICT"), nullable=False, index=True
     )
 
     amount: Mapped[float] = mapped_column(Float, nullable=False)

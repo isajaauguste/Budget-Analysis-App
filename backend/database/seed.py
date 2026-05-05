@@ -4,11 +4,32 @@ from datetime import date
 from sqlalchemy import select
 
 from database.session import AsyncSessionLocal
-from models import Transaction, Category
-
+from models import Transaction, Category, User, Credential, UserRole
 
 async def seed_data():
     async with AsyncSessionLocal() as session:
+
+        # # =====================
+        # # USER
+        # # =====================
+        # result = await session.execute(
+        #     select(User).where(User.username == "testuser")
+        # )
+        # user = result.scalar_one_or_none()
+
+        # if user is None:
+        #     user = User(
+        #         username="testuser",
+        #         email="test@example.com",
+        #         role=UserRole.USER,
+        #         credential=Credential(
+        #             password_hash="fakehashedpassword"
+        #         )
+        #     )
+        #     session.add(user)
+        #     await session.flush()  # svarbu -> gaunam user.user_id
+
+        
 
         # =====================
         # CATEGORIES
@@ -74,7 +95,7 @@ async def seed_data():
                     amount=tx_data["amount"],
                     date=date.today(),
                     category_id=category.category_id,
-                    user_id=None,
+                    user_id=1,
                 )
                 session.add(transaction)
             else:

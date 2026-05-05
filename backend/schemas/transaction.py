@@ -6,6 +6,7 @@ from pydantic import BaseModel, ConfigDict
 
 
 class TransactionBase(BaseModel):
+    user_id: int
     amount: float
     date: date
     name: str
@@ -27,6 +28,7 @@ class TransactionPut(TransactionBase):
 
 class TransactionOut(BaseModel):
     transaction_id: int
+    user_id: int
     date: date
     amount: float
     name: str
