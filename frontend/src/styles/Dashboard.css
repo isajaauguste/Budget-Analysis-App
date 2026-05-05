@@ -47,10 +47,11 @@
     gap: 5px;
     background-color: #ffffff;
     padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #f3f4f6;
 }
 /*Chart*/
 .overview-style{
-    background-color: #ffffff;
     padding: 15px;
     margin-left: 10px;
     margin-right: 10px;
