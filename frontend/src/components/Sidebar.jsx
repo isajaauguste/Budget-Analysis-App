@@ -8,15 +8,18 @@ import {
   User,
 } from "lucide-react";
 import "../styles/Sidebar.css";
+import {useUser} from "../context/useUser";
 
 function Sidebar() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { user,  logout } = useUser();
+
   //reikia redaguoti pagal duomenu baze
-  const user = {
-        name: "Guest",
-        email: "guest@email.com"
-    };
+  // const user = {
+  //       name: "Guest",
+  //       email: "guest@email.com"
+  //   };
 
   const navItems = [
     { path: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -24,11 +27,9 @@ function Sidebar() {
     { path: "/statistics", label: "Statistics", icon: BarChart3 },
     { path: "/add", label: "Add Transaction", icon: PlusCircle },
   ];
-  const handleLogout = () => {
-    if (confirm("Are you sure you want to logout?")) {
-      auth.logout();
-      navigate("/login");
-    }
+  const handleLogout = async () => {
+    await logout();
+        navigate("/login");
   };
   return (
     
