@@ -1,28 +1,36 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import TransactionForm from "./components/TransactionForm";
-import TransactionsList from "./components/TransactionsList";
-import Sidebar from "./components/Sidebar";
-import Dashboard from "./components/Dashboard";
-import Transactions from "./components/Transactions";
-import Statistics from "./components/Statistics";
+import { Routes, Route } from "react-router-dom";
 import "./styles/AppFullStyle.css";
+import Login from "./Login.jsx";
+import Register from "./Register.jsx";
+import UserDashboard from "./Userdashboard.jsx";
+import AdminDashboard from "./AdminDashboard.jsx";
+import RequireAdmin from "./RequireAdmin.jsx";
+import RequireUser from "./RequireUser.jsx";
 // import { Routes, Route } from "react-router";
 
 function App() {
   return (
     <>
-        <div className="style_pages-dashboard">
-          <Sidebar />
-
-          <div style={{ flex: 1 }}>
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/transactions" element={<Transactions />} />
-              <Route path="/statistics" element={<Statistics />} />
-              <Route path="/add" element={<TransactionForm />} />
-            </Routes>
-          </div>
-        </div>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/admin"
+          element={
+            <RequireAdmin>
+              <AdminDashboard />
+            </RequireAdmin>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <RequireUser>
+              <UserDashboard />
+            </RequireUser>
+          }
+        />
+      </Routes>
     </>
   );
 }
