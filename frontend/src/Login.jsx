@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 import { useUser } from "./context/useUser";
 import { useState } from "react";
+import "./styles/Login.css"
 
 export default function Login() {
 
@@ -33,8 +34,10 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h2>Login</h2>
+    <>
+    <div className="login-style">
+    <form onSubmit={handleSubmit(onSubmit)} className="login-background">
+      <h2 className="h2-position">Login</h2>
 
       {serverError && <p>{serverError}</p>}
 
@@ -58,5 +61,7 @@ export default function Login() {
 
       <button type="submit">Login</button>
     </form>
+    </div>
+    </>
   );
 }

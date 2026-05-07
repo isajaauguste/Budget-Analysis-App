@@ -1,0 +1,17 @@
+.login-style{
+    display: flex;
+    justify-content: center;
+    background-color: aliceblue;
+    padding: 100px;
+}
+.login-background{
+    background-color: #fff;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.h2-position{
+    display: flex;
+    justify-content: center;
+}

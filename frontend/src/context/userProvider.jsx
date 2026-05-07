@@ -7,14 +7,14 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const login = async (data) => {
-    const res = await api.post("/user/login", data);
+    const res = await api.post("/auth/login", data);
     setUser(res.data.data);
     setLoading(false);
     return res.data.data;
   };
 
   const logout = async () => {
-    await api.post("/user/logout");
+    await api.post("/auth/logout");
     setUser(null);
   };
 
