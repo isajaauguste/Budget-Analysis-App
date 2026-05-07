@@ -19,16 +19,18 @@ export default function Register() {
     setSuccessMessage(null);
 
     try {
-      await api.post("/user/register", data);
+      await api.post("/users", data);
 
       setSuccessMessage("User registered successfully");
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       const message = err?.response?.data?.message || "Registration failed";
 
       setServerError(message);
     }
   };
+
+  const password = watch("password");
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -39,7 +41,7 @@ export default function Register() {
       {successMessage && <p>{successMessage}</p>}
 
       <input
-        type="username"
+        type="text"
         placeholder="Username"
         {...register("username", {
           required: "Username is required",
