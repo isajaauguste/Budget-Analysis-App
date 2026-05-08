@@ -1,16 +1,19 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { UserProvider } from "../src/context/userProvider.jsx";
 import "./index.css";
 import App from "./App.jsx";
+import UserGate from "./UserGate.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <UserProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <UserGate>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </UserGate>
     </UserProvider>
-  </StrictMode>,
+  </StrictMode>
 );
