@@ -10,7 +10,7 @@ from utils.jwt import create_access_token
 class AuthService:
     @staticmethod
     async def login_user(db: AsyncSession, payload: UserLogin) -> str:
-        user = await UserRepository.get_by_username_or_email(db, payload.login)
+        user = await UserRepository.get_by_username_or_email(db, payload.email)
 
         if not user or not user.credential:
             raise HTTPException(

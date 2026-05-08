@@ -25,11 +25,11 @@ class UserRepository:
         return result.scalar_one()
 
     @staticmethod
-    async def get_by_username_or_email(db: AsyncSession, login: str) -> User | None:
+    async def get_by_username_or_email(db: AsyncSession, email: str) -> User | None:
         result = await db.execute(
             select(User)
             .options(selectinload(User.credential))
-            .where(or_(User.username == login, User.email == login))
+            .where(or_( User.email == email))
         )
 
         return result.scalar_one_or_none()

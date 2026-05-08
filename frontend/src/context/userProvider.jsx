@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../lib/axios";
 import { UserContext } from "./UserContext";
+import { data } from "react-router";
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -8,9 +9,10 @@ export const UserProvider = ({ children }) => {
 
   const login = async (data) => {
     const res = await api.post("/auth/login", data);
-    setUser(res.data.data);
+    
+    setUser(res.data);
     setLoading(false);
-    return res.data.data;
+    return res.data;
   };
 
   const logout = async () => {
@@ -18,15 +20,15 @@ export const UserProvider = ({ children }) => {
     setUser(null);
   };
 
-  // useEffect(() => {
-  //   const loadUser = async () => {
-  //     const res = await api.get("/user/me");
-  //     setUser(res.data.data);
-  //     setLoading(false);
-  //   };
+  useEffect(() => {
+    const loadUser = async () => {
+      const res = await api.get("/users/me");
+      setUser(res.data.data);
+      setLoading(false);
+    };
 
-  //   loadUser();
-  // }, []);
+    loadUser();
+  }, []);
 
   return (
     <UserContext.Provider value={{ user, login, logout, loading }}>

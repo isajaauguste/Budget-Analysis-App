@@ -1,12 +1,12 @@
 meta {
-  name: create user
+  name: user me
   type: http
-  seq: 14
+  seq: 22
 }
 
-post {
-  url: http://127.0.0.1:8000/api/v1/users/
-  body: json
+get {
+  url: http://127.0.0.1:8000/api/v1/users/me
+  body: none
   auth: inherit
 }
 
