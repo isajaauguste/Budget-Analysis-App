@@ -32,9 +32,9 @@ class AuthService:
         token = create_access_token(
             {
                 "sub": str(user.user_id),
-                "username": user.username,
-                "email": user.email,
+                # "username": user.username,
+                # "email": user.email,
             }
         )
 
-        return token
+        return token, user

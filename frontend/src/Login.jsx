@@ -37,6 +37,7 @@ export default function Login() {
     <>
     <div className="login-style">
     <form onSubmit={handleSubmit(onSubmit)} className="login-background">
+      {/* <button type="button" onClick={() => navigate("/register")} className="register_button">Register</button> */}
       <h2 className="h2-position">Login</h2>
 
       {serverError && <p>{serverError}</p>}
