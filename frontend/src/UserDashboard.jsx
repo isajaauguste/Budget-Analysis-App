@@ -1,5 +1,5 @@
-import { Outlet, Link } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
+// import { Outlet, Link } from "react-router-dom";
+// import Sidebar from "./components/Sidebar.jsx";
 import "./styles/AppFullStyle.css";
 
 function UserDashboard() {

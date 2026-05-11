@@ -10,10 +10,10 @@ import AdminDashboard from "./AdminDashboard.jsx";
 import RequireAdmin from "./RequireAdmin.jsx";
 import RequireUser from "./RequireUser.jsx";
 
-import Dashboard from "./components/Dashboard.jsx";
-import Transactions from "./components/Transactions.jsx";
-import Statistics from "./components/Statistics.jsx";
-import TransactionForm from "./components/TransactionForm.jsx";
+// import Dashboard from "./components/Dashboard.jsx";
+// import Transactions from "./components/Transactions.jsx";
+// import Statistics from "./components/Statistics.jsx";
+// import TransactionForm from "./components/TransactionForm.jsx";
 
 function App() {
   return (

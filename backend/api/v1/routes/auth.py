@@ -14,7 +14,7 @@ async def login_user(
     response: Response,
     db: AsyncSession = Depends(get_db),
 ):
-    token = await AuthService.login_user(db, payload)
+    token, user = await AuthService.login_user(db, payload)
 
     response.set_cookie(
         key="access_token",
@@ -25,7 +25,11 @@ async def login_user(
         samesite="lax",
     )
 
-    return {"message": "Login successful"}
+    return {
+        "status": "success",
+        "message": "Login successful",
+        "data": user
+        }
 
 
 @router.post("/logout", status_code=status.HTTP_200_OK)

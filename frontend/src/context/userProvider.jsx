@@ -20,16 +20,32 @@ export const UserProvider = ({ children }) => {
     setUser(null);
   };
 
+  // useEffect(() => {
+  //   const loadUser = async () => {
+  //     const res = await api.get("/users/me");
+  //     console.log(res.data);
+  //     setUser(res.data);
+  //     setLoading(false);
+  //   };
+
+  //   loadUser();
+  // }, []);
+
   useEffect(() => {
     const loadUser = async () => {
-      const res = await api.get("/users/me");
-      setUser(res.data.data);
-      setLoading(false);
+      try {
+        const res = await api.get("/users/me");
+        setUser(res.data.data);
+      } catch {
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    loadUser();
+  loadUser();
   }, []);
-
+  
   return (
     <UserContext.Provider value={{ user, login, logout, loading }}>
       {children}

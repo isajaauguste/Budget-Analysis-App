@@ -47,3 +47,17 @@ async def require_admin(
         )
     
     return current_user
+
+async def get_current_oprional_user(
+        db: AsyncSession = Depends(get_db),
+        access_token: Annotated[str | None, Cookie()] = None,
+) -> User | None:
+    if not  access_token:
+        return None
+    try:
+        payload = decode_access_token(access_token)
+        user_id = int(payload["sub"])
+    except Exception:
+        return None 
+    user = await UserRepository.get_by_id(db, user_id)
+    return user

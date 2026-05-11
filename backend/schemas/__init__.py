@@ -5,7 +5,7 @@ from .income import IncomeCreate, IncomeOut, IncomePut
 from .income_category import IncomeCategoryCreate, IncomeCategoryOut
 from .common import ListParams, PaginatedResponse
 from .transaction import TransactionOut, TransactionListResponse, TransactionCreate, TransactionPut
-from .user import UserCreate, UserLogin, UserResponse
+from .user import UserCreate, UserLogin, UserResponse, CurrentUserResponse
 from .category import CategoryBase, CategoryCreate, CategoryOut
 
 
@@ -32,4 +32,5 @@ __all__ = [
     "CategoryBase",
     "CategoryCreate",
     "CategoryOut",
+    "CurrentUserResponse",
 ]
