@@ -15,11 +15,6 @@ function Sidebar() {
   const navigate = useNavigate();
   const { user,  logout } = useUser();
 
-  //reikia redaguoti pagal duomenu baze
-  // const user = {
-  //       name: "Guest",
-  //       email: "guest@email.com"
-  //   };
 
   const navItems = [
     { path: "/", label: "Dashboard", icon: LayoutDashboard },
