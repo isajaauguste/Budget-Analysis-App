@@ -1,11 +1,13 @@
 // import { Outlet, Link } from "react-router-dom";
-// import Sidebar from "./components/Sidebar.jsx";
+import Sidebar from "./components/Sidebar.jsx";
+import Dashboard from "./components/Dashboard.jsx";
 import "./styles/AppFullStyle.css";
 
 function UserDashboard() {
   return (
     <div className="style_pages-dashboard">
-      {/* <Sidebar /> */}
+      <Sidebar />
+      <Dashboard/>
       <h1>hello</h1>
     </div>
   );

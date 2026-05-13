@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router";
 import {
   LayoutDashboard,
   ListFilter,
@@ -8,12 +8,12 @@ import {
   User,
 } from "lucide-react";
 import "../styles/Sidebar.css";
-import {useUser} from "../context/useUser";
+import { useUser } from "../context/useUser";
 
 function Sidebar() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user,  logout } = useUser();
+  const { user, logout } = useUser();
 
   //reikia redaguoti pagal duomenu baze
   // const user = {
@@ -23,16 +23,15 @@ function Sidebar() {
 
   const navItems = [
     { path: "/", label: "Dashboard", icon: LayoutDashboard },
-    { path: "/transactions", label: "Transactions", icon: ListFilter},
+    { path: "/transactions", label: "Transactions", icon: ListFilter },
     { path: "/statistics", label: "Statistics", icon: BarChart3 },
     { path: "/add", label: "Add Transaction", icon: PlusCircle },
   ];
   const handleLogout = async () => {
     await logout();
-        navigate("/");
+    navigate("/");
   };
   return (
-    
     <div className="sidebar">
       <div>
         <h1 className="budget-tracker-style">Budget Tracker</h1>
@@ -60,22 +59,20 @@ function Sidebar() {
       </nav>
       <div className="style-border">
         <div className="style-item">
-            <div className="style-flex">
-                <User className="userProfile"/>
-            </div>
-            <div>
-                <p className="style-username">{user?.name}</p>
-                <p className="style-email">{user?.email}</p>
-            </div>
+          <div className="style-flex">
+            <User className="userProfile" />
+          </div>
+          <div>
+            <p className="style-username">{user?.username}</p>
+            <p className="style-email">{user?.email}</p>
+          </div>
         </div>
         <button onClick={handleLogout} className="logout-button-style">
-            <LogOut className = "LogOut-style"/>
-            <span>LogOut</span>
+          <LogOut className="LogOut-style" />
+          <span>LogOut</span>
         </button>
-        
-        </div>
       </div>
-    
+    </div>
   );
 }
 

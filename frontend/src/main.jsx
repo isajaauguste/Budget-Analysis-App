@@ -8,12 +8,12 @@ import UserGate from "./UserGate.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    <BrowserRouter>
     <UserProvider>
       <UserGate>
-        <BrowserRouter>
           <App />
-        </BrowserRouter>
       </UserGate>
     </UserProvider>
+    </BrowserRouter>
   </StrictMode>
 );
