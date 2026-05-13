@@ -10,9 +10,9 @@ export const UserProvider = ({ children }) => {
   const login = async (data) => {
     const res = await api.post("/auth/login", data);
     
-    setUser(res.data);
-    setLoading(false);
-    return res.data;
+    setUser(res.data.data);
+    // setLoading(false);
+    return res.data.data;
   };
 
   const logout = async () => {
@@ -35,6 +35,8 @@ export const UserProvider = ({ children }) => {
     const loadUser = async () => {
       try {
         const res = await api.get("/users/me");
+        console.log(res.data.data);
+        
         setUser(res.data.data);
       } catch {
         setUser(null);

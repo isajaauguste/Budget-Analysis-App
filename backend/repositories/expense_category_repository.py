@@ -10,7 +10,6 @@ class ExpenseCategoryRepository:
         result = await db.execute(
             select(ExpenseCategory).where(ExpenseCategory.category_id == category_id)
         )
-        print(result)
 
         return result.scalar_one_or_none()
 

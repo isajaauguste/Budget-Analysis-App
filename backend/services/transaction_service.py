@@ -110,7 +110,6 @@ class TransactionService:
         )
         result = []
         for t in transactions:
-            print(t)
             result.append(TransactionOut(
                 transaction_id=t.transaction_id,
                 user_id=t.user_id,
