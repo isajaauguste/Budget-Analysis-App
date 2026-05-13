@@ -48,16 +48,28 @@ async def require_admin(
     
     return current_user
 
-async def get_current_oprional_user(
+async def get_current_optional_user(
         db: AsyncSession = Depends(get_db),
         access_token: Annotated[str | None, Cookie()] = None,
 ) -> User | None:
     if not  access_token:
+        print("NO ACCESS TOKEN")
         return None
+    
     try:
         payload = decode_access_token(access_token)
+        print(f"auth_60: {payload}")
         user_id = int(payload["sub"])
-    except Exception:
-        return None 
+        print(f"auth_62: {user_id}")
+    except Exception as e:
+        print("TOKEN ERROR", e)
+        return None
+     
     user = await UserRepository.get_by_id(db, user_id)
+
+    if not user:
+        print("USER NOT FOUND")
+        return None
+
+    print(f"auth_67 {user.user_id}")
     return user
