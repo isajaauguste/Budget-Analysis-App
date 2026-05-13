@@ -1,43 +1,18 @@
 import "../styles/Dashboard.css";
 import { Link } from "react-router";
-import { Wallet, TrendingUp, TrendingDown, Icon } from "lucide-react";
-import { useState, useEffect } from "react";
-import { getIncome } from "../services/incomeService";
-import { getExpense } from "../services/expenseService";
+import { useState } from "react";
 import TransactionsList from "./TransactionsList";
 import OverviewChart from "./OverviewChart";
 
 export default function Dashboard() {
-  return ""
-  //Reikes perkelti i back'a
-  
-  // const totalIncome = chartData.reduce((sum, item) => sum + item.income, 0);
-  // const totalExpense = chartData.reduce((sum, item) => sum + item.expense, 0);
-  // const balance = totalIncome - totalExpense;
-
-  // const summary = {
-  //   balance,
-  //   totalIncome,
-  //   totalExpense,
-  // };
-  // const [chartData, setChartData] = useState([]);
-  // const [summary, setSummary] = useState({
-  //   balance: 0,
-  //   totalIncome: 0,
-  //   totalExpense: 0,
-  // });
-
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/v1/dashboard")
-      .then((res) => res.json())
-      .then((data) => {
-        setChartData(data.chartData);
-        setSummary(data.summary);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  const [summary] = useState({
+    balance: 0,
+    totalIncome: 0,
+    totalExpense: 0,
+  });
 
   const formatCurrency = (value) => `€${value}`;
+
   return (
     <div className="conteiner-style">
       <div className="header-ButtonForAddTransaction">
