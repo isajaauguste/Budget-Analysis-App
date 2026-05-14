@@ -18,6 +18,7 @@ function Transactions() {
 
       const res = await getTransactions({
         transaction_type: filter,
+        // category_type: filter === "all" ? null : filter,
         sort_by: sortBy,
         limit: 10,
         offset: 0,
@@ -27,7 +28,7 @@ function Transactions() {
       console.log("DATA:", res.data);
       console.log("SENT FILTER:", filter);
 
-      setTransactions(res.data.data || []);
+      setTransactions(res.data || []);
     } catch (err) {
       console.error(err);
       setError("Failed to load transactions");
