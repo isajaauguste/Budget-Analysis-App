@@ -17,7 +17,7 @@ function Sidebar() {
 
 
   const navItems = [
-    { path: "/", label: "Dashboard", icon: LayoutDashboard },
+    { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { path: "/transactions", label: "Transactions", icon: ListFilter },
     { path: "/statistics", label: "Statistics", icon: BarChart3 },
     { path: "/add", label: "Add Transaction", icon: PlusCircle },

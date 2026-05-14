@@ -65,7 +65,7 @@ function TransactionForm() {
             const payload = {
                 amount: Number(data.amount),
                 name: data.name,
-                date: data.date,
+                date: String(data.date),//pakeista
                 category_id: Number(data.category_id),
             };
 

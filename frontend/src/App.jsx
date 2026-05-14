@@ -4,11 +4,12 @@ import "./styles/AppFullStyle.css";
 import Login from "./Login.jsx";
 import Register from "./Register.jsx";
 
-import UserDashboard from "./Userdashboard.jsx";
+import UserDashboard from "./UserDashboard.jsx";
 import AdminDashboard from "./AdminDashboard.jsx";
 
 import RequireAdmin from "./RequireAdmin.jsx";
 import RequireUser from "./RequireUser.jsx";
+import Transactions from "./components/Transactions.jsx";
 
 // import Dashboard from "./components/Dashboard.jsx";
 // import Transactions from "./components/Transactions.jsx";
@@ -37,6 +38,14 @@ function App() {
             <UserDashboard />
           </RequireUser>
         }
+      />
+      <Route 
+      path="/transactions"
+      element={
+        <RequireUser>
+          <Transactions/>
+        </RequireUser>
+      }
       />
     </Routes>
   );
